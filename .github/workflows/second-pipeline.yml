@@ -1,0 +1,34 @@
+name: Second Pipeline(Generate a random number, Print the random number, Show dice)
+on:
+  - push
+  - pull_request
+
+# Default shell for all steps, we can override it in each step
+defaults:
+    run:
+        shell: bash
+
+jobs:
+  generate-random-number:
+    outputs:
+      dice-result: ${{ steps.random-number.outputs.dice}}
+    env:
+      JOB_VAR: "Env Variable"
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Generate a random number
+        id: random-number
+        run: | # multiline command
+          ruby -e 'puts "dice=#{rand(1..6)}"' >> "$GITHUB_OUTPUT"
+      - name: Print the random number # use the output from the `random-number` step
+        run: echo ${{ steps.random-number.outputs.dice}}
+  print-on-matrix:
+    strategy:
+        matrix:
+            os: [windows, ubuntu, macos]
+    runs-on: ${{ matrix.os }}-latest
+    needs:
+      - generate-random-number
+    steps:
+      - name: Show dice
+        run: echo ${{ needs.generate-random-number.outputs.dice-result }}

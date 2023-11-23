@@ -1,0 +1,26 @@
+name: First Pipeline(Checkout repo, Configure java, Print java version)
+on:
+    - push
+    - pull_request
+
+jobs:
+    checkout-example:
+        env:
+            JOB_VAR: "Siummm"
+        runs-on: ubuntu-22.04
+        steps:
+            - name: If Expression
+              run: echo "This is a If Expression"
+              if: runner.os == 'Linux' # no case sensitive, also "linux" works
+            - run: echo "I am Back with a $JOB_VAR" #runs a command
+              name: This is a print
+              shell: sh
+            - name: Checkout repo
+              uses: actions/checkout@v4
+            - name: Configure java
+              uses: actions/setup-java@v4
+              with: # to pass inputs to the action
+                  distribution: 'temurin'
+                  java-version: '17'
+            - name: Print java version
+              run: java -version
