@@ -1,0 +1,33 @@
+name: Matrix Pipeline
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+defaults:
+  run:
+    shell: bash
+jobs:
+  setup-env:
+    strategy:
+      matrix:
+        os: [windows, ubuntu, macos]
+        python_v: [2, 3]
+        java_v: [8, 11, 15, 16]
+    runs-on: ${{ matrix.os }}-latest
+    steps:
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java_v }}
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python_v }}
+      - name: Print Java Version
+        run: java -version
+      - name: Print Python Version
+        run: python --version
