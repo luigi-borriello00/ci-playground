@@ -2,7 +2,6 @@ name: First Pipeline(Checkout repo, Configure java, Print java version)
 on:
     - push
     - pull_request
-
 jobs:
     checkout-example:
         env:
