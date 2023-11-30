@@ -11,12 +11,14 @@ defaults:
     shell: bash
 jobs:
   setup-env:
+    # Job Setup
     strategy:
       matrix:
         os: [windows, ubuntu, macos]
-        python_v: [2, 3]
-        java_v: [8, 11, 15, 16]
+        python_v: [3.7, 3.9.12]
+        java_v: [8, 11, 16, 20]
     runs-on: ${{ matrix.os }}-latest
+    # Job Steps
     steps:
       - name: Install Java
         uses: actions/setup-java@v4
