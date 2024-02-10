@@ -16,6 +16,9 @@
     "branches": [
       "main"
     ],
-    "preset": "conventionalcommits"
+    "preset": "conventionalcommits",
+    "plugins": [
+      "@semantic-release/changelog"
+    ]
   }
 }
