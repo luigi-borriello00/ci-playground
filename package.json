@@ -2,7 +2,7 @@
   "name": "ci-playground",
   "version": "1.0.0",
   "description": "",
-  "main": "release.config.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +18,10 @@
     ],
     "preset": "conventionalcommits",
     "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github",
+      "@semantic-release/git",
       "@semantic-release/changelog"
     ]
   }
